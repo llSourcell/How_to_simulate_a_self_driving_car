@@ -35,7 +35,18 @@ Start up [the Udacity self-driving simulator](https://github.com/udacity/self-dr
 python drive.py model.h5
 ```
 
-### To train the model
+### Generating data
+
+Start up [the Udacity self-driving simulator](https://github.com/udacity/self-driving-car-sim), choose a scene and press the Training Mode button.  Then, press R to choose directory for data. After choosing directory press R to start recording. Drive for around 5 laps and press R again to capture data.
+
+### Preprocessing images
+
+run:
+```python
+python preprocess_images.py
+```
+
+### Training the model
 
 You'll need the data folder which contains the training images.
 
@@ -43,11 +54,8 @@ You'll need the data folder which contains the training images.
 python model.py
 ```
 
-This will generate a file `model-<epoch>.h5` whenever the performance in the epoch is better than the previous best.  For example, the first epoch will generate a file called `model-000.h5`.
+This will generate a file `model-<epoch>-<val_loss>.h5` whenever the performance in the epoch is better than the previous best.
 
 ## Credits
 
 The credits for this code go to [naokishibuya](https://github.com/naokishibuya). I've merely created a wrapper to get people started.
-
-
-
