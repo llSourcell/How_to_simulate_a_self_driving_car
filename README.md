@@ -18,7 +18,7 @@ You need a [anaconda](https://www.continuum.io/downloads) or [miniconda](https:/
 conda env create -f environments.yml 
 
 # Use TensorFlow with GPU
-conda env create -f environments-gpu.yml
+conda env create -f environment-gpu.yml
 ```
 
 Or you can manually install the required libraries (see the contents of the environemnt*.yml files) using pip.
