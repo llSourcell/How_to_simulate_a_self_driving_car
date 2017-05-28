@@ -1,7 +1,8 @@
-import cv2, os
-import numpy as np
-import matplotlib.image as mpimg
+import os
 
+import cv2
+import matplotlib.image as mpimg
+import numpy as np
 
 IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS = 66, 200, 3
 INPUT_SHAPE = (IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS)
@@ -18,7 +19,7 @@ def crop(image):
     """
     Crop the image (removing the sky at the top and the car front at the bottom)
     """
-    return image[60:-25, :, :] # remove the sky and the car front
+    return image[60:-25, :, :]  # remove the sky and the car front
 
 
 def resize(image):
@@ -116,7 +117,7 @@ def random_brightness(image):
     # HSV (Hue, Saturation, Value) is also called HSB ('B' for Brightness).
     hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
     ratio = 1.0 + 0.4 * (np.random.rand() - 0.5)
-    hsv[:,:,2] =  hsv[:,:,2] * ratio
+    hsv[:, :, 2] = hsv[:, :, 2] * ratio
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
 
 
@@ -148,12 +149,12 @@ def batch_generator(data_dir, image_paths, steering_angles, batch_size, is_train
             if is_training and np.random.rand() < 0.6:
                 image, steering_angle = augument(data_dir, center, left, right, steering_angle)
             else:
-                image = load_image(data_dir, center) 
-            # add the image and steering angle to the batch
-            images[i] = preprocess(image)
+                image = load_image(data_dir, center)
+                # add the image and steering angle to the batch
+            # images[i] = preprocess(image)
+            images[i] = image
             steers[i] = steering_angle
             i += 1
             if i == batch_size:
                 break
         yield images, steers
-
