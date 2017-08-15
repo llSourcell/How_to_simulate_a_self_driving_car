@@ -56,6 +56,12 @@ def telemetry(sid, data):
         speed = float(data["speed"])
         # The current image from the center camera of the car
         image = Image.open(BytesIO(base64.b64decode(data["image"])))
+        # save frame
+        if args.image_folder != '':
+            timestamp = datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S_%f')[:-3]
+            image_filename = os.path.join(args.image_folder, timestamp)
+            image.save('{}.jpg'.format(image_filename))
+
         try:
             image = np.asarray(image)       # from PIL image to numpy array
             image = utils.preprocess(image) # apply the preprocessing
@@ -78,11 +84,6 @@ def telemetry(sid, data):
         except Exception as e:
             print(e)
 
-        # save frame
-        if args.image_folder != '':
-            timestamp = datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S_%f')[:-3]
-            image_filename = os.path.join(args.image_folder, timestamp)
-            image.save('{}.jpg'.format(image_filename))
     else:
         
         sio.emit('manual', data={}, skip_sid=True)
